@@ -1,0 +1,217 @@
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import {
+  Alert,
+  UncontrolledAlert,
+  Button,
+  FormGroup,
+  Label,
+  Input,
+  Col,
+  Row,
+  CustomInput,
+  FormFeedback,
+} from "reactstrap";
+import * as Yup from "yup";
+
+const signup = ({ onSubmit }) => {
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, "Must be 3 characters or more")
+      .max(64, "Must be 64 characters or less")
+      .required("Required"),
+    email: Yup.string().email().required(),
+    age: Yup.number().required().min(1).max(150).positive().integer(),
+    birthdate: Yup.date().default(function () {
+      return new Date();
+    }),
+    acceptTerms: Yup.bool().oneOf(
+      [true],
+      "Accept Terms & Conditions is required"
+    ),
+    gender: Yup.string().oneOf(["male", "female"], "The gender is required"),
+    country: Yup.string().required(),
+  });
+
+  return (
+    <>
+      <h2 className="m-4 p-4">
+        Basic React Form with Formik, Yup validator, Reactstrap and React-Table
+      </h2>
+      <Formik
+        enableReinitialize
+        initialValues={{
+          name: "",
+          email: "",
+          age: "",
+          birthdate: "",
+          acceptTerms: false,
+          gender: false,
+          country: "",
+          techs: [],
+        }}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        {({ values, isSubmitting, setFieldValue }) => (
+          <Form>
+            <Row form>
+              <Col md={3}>
+                <FormGroup>
+                  <Label htmlFor="name">Name</Label>
+                  <Input tag={Field} id="name" type="text" name="name" />
+                  <ErrorMessage
+                    className="d-block"
+                    component={FormFeedback}
+                    name="name"
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={3}>
+                <FormGroup>
+                  <Label htmlFor="email">Email</Label>
+                  <Input tag={Field} id="email" type="email" name="email" />
+                  <ErrorMessage
+                    className="d-block"
+                    component={FormFeedback}
+                    name="email"
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={3}>
+                <FormGroup>
+                  <Label htmlFor="age">Age</Label>
+                  <Input tag={Field} id="age" type="number" name="age" />
+                  <ErrorMessage
+                    className="d-block"
+                    component={FormFeedback}
+                    name="age"
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={3}>
+                <FormGroup>
+                  <Label htmlFor="birthdate">Birth date</Label>
+                  <Input
+                    tag={Field}
+                    id="birthdate"
+                    type="date"
+                    name="birthdate"
+                  />
+                  <ErrorMessage
+                    className="d-block"
+                    component={FormFeedback}
+                    name="birthdate"
+                  />
+                </FormGroup>
+              </Col>
+
+              <Col md={3}>
+                <FormGroup>
+                  <Label for="acceptTerms">Checkboxes</Label>
+                  <div>
+                    <CustomInput
+                      type="checkbox"
+                      id="acceptTerms"
+                      name="acceptTerms"
+                      label="Accept Terms & Conditions"
+                      onChange={() => {
+                        setFieldValue("acceptTerms", !values.acceptTerms);
+                      }}
+                    />
+                    <ErrorMessage
+                      className="d-block"
+                      component={FormFeedback}
+                      name="acceptTerms"
+                    />
+                  </div>
+                </FormGroup>
+              </Col>
+              <Col md={3}>
+                <FormGroup>
+                  <Label for="gender">Gender</Label>
+                  <div>
+                    <CustomInput
+                      type="radio"
+                      id="female"
+                      name="gender"
+                      label="Female"
+                      onChange={() => {
+                        setFieldValue("gender", "female");
+                      }}
+                    />
+                    <CustomInput
+                      type="radio"
+                      id="male"
+                      name="gender"
+                      label="Male"
+                      onChange={() => {
+                        setFieldValue("gender", "male");
+                      }}
+                    />
+                    <ErrorMessage
+                      className="d-block"
+                      component={FormFeedback}
+                      name="gender"
+                    />
+                  </div>
+                </FormGroup>
+              </Col>
+              <Col md={3}>
+                <FormGroup>
+                  <Label for="country">Country</Label>
+                  <CustomInput
+                    type="select"
+                    id="country"
+                    name="country"
+                    onChange={(event) =>
+                      setFieldValue("country", event.target.value)
+                    }
+                  >
+                    <option value="">Select</option>
+                    <option value="1">Brazil</option>
+                    <option value="2">Usa</option>
+                    <option value="3">Japan</option>
+                  </CustomInput>
+                  <ErrorMessage
+                    className="d-block"
+                    component={FormFeedback}
+                    name="country"
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={3}>
+                <FormGroup>
+                  <Label for="techs">Techs</Label>
+                  <CustomInput
+                    type="select"
+                    id="techs"
+                    name="techs"
+                    onChange={(event) =>
+                      setFieldValue("techs", [
+                        ...values.techs,
+                        event.target.value,
+                      ])
+                    }
+                    multiple
+                  >
+                    <option value="">Select</option>
+                    <option value="vue">Vue</option>
+                    <option value="react">React</option>
+                    <option value="angular">Angular</option>
+                    <option value="ember">Ember</option>
+                  </CustomInput>
+                </FormGroup>
+              </Col>
+              <Button color="primary" type="submit">
+                Submit
+              </Button>
+            </Row>
+          </Form>
+        )}
+      </Formik>
+    </>
+  );
+};
+
+export default signup;
