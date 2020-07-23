@@ -13,6 +13,7 @@ import {
   FormFeedback,
 } from "reactstrap";
 import * as Yup from "yup";
+import * as moment from "moment";
 
 const signup = ({ onSubmit }) => {
   const validationSchema = Yup.object().shape({
@@ -22,8 +23,8 @@ const signup = ({ onSubmit }) => {
       .required("Required"),
     email: Yup.string().email().required(),
     age: Yup.number().required().min(1).max(150).positive().integer(),
-    birthdate: Yup.date().default(function () {
-      return new Date();
+    birthdate: Yup.mixed().test("isDate", "Birth date is required", (value) => {
+      return moment(value, "YYYY-MM-DD", true).isValid();
     }),
     acceptTerms: Yup.bool().oneOf(
       [true],
@@ -35,9 +36,10 @@ const signup = ({ onSubmit }) => {
 
   return (
     <>
-      <h2 className="m-4 p-4">
-        Basic React Form with Formik, Yup validator, Reactstrap and React-Table
-      </h2>
+      <h3 className="m-4 p-4">
+        Basic React Form with Formik, Yup validator, Reactstrap, React-Table-6
+        and React-Select
+      </h3>
       <Formik
         enableReinitialize
         initialValues={{
