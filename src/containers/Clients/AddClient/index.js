@@ -117,6 +117,7 @@ const signup = ({ onSubmit, getRecord, initialValues }) => {
                       id="acceptTerms"
                       name="acceptTerms"
                       label="Accept Terms & Conditions"
+                      checked={values.acceptTerms}
                       onChange={() => {
                         setFieldValue("acceptTerms", !values.acceptTerms);
                       }}
@@ -138,6 +139,7 @@ const signup = ({ onSubmit, getRecord, initialValues }) => {
                       id="female"
                       name="gender"
                       label="Female"
+                      checked={values.gender === "female"}
                       onChange={() => {
                         setFieldValue("gender", "female");
                       }}
@@ -147,6 +149,7 @@ const signup = ({ onSubmit, getRecord, initialValues }) => {
                       id="male"
                       name="gender"
                       label="Male"
+                      checked={values.gender === "male"}
                       onChange={() => {
                         setFieldValue("gender", "male");
                       }}
@@ -166,6 +169,7 @@ const signup = ({ onSubmit, getRecord, initialValues }) => {
                     type="select"
                     id="country"
                     name="country"
+                    value={values.country}
                     onChange={(event) =>
                       setFieldValue("country", event.target.value)
                     }
@@ -192,7 +196,7 @@ const signup = ({ onSubmit, getRecord, initialValues }) => {
                     options={optionsTechs}
                     className="basic-multi-select"
                     classNamePrefix="select"
-                    noOptionsMessage={() => "Sem opções"}
+                    value={values.techs}
                     onChange={(values) => setFieldValue("techs", values)}
                   />
                 </FormGroup>

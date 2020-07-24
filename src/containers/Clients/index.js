@@ -51,12 +51,11 @@ export default function Clients() {
       age: "18",
       birthdate: "2000-10-10",
       acceptTerms: true,
-      gender: "female",
-      country: 2,
+      gender: "male",
+      country: "2",
       techs: [
-        {
-          value: 1,
-        },
+        { value: "1", label: "React" },
+        { value: "3", label: "Vue" },
       ],
     });
   };
