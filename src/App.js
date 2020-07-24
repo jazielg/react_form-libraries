@@ -1,5 +1,5 @@
 import React from "react";
-import Clients from "./src/containers/Clients";
+import Clients from "./containers/Clients";
 
 function App() {
   return (

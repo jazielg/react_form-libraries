@@ -23,7 +23,7 @@ const optionsTechs = [
   { value: "3", label: "Vue" },
 ];
 
-const signup = ({ onSubmit }) => {
+const signup = ({ onSubmit, getRecord, initialValues }) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, "Must be 3 characters or more")
@@ -46,21 +46,12 @@ const signup = ({ onSubmit }) => {
   return (
     <>
       <h3 className="m-4 p-4">
-        Basic React Form with Formik, Yup validator, Reactstrap, React-Table-6
+        Basic React Form with Formik, Yup validation, Reactstrap, React-Table-6
         and React-Select
       </h3>
       <Formik
         enableReinitialize
-        initialValues={{
-          name: "",
-          email: "",
-          age: "",
-          birthdate: "",
-          acceptTerms: false,
-          gender: false,
-          country: "",
-          techs: [],
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
@@ -211,6 +202,9 @@ const signup = ({ onSubmit }) => {
                   name="techs"
                 />
               </Col>
+              <Button color="secondary" type="button" onClick={getRecord}>
+                Get record to fill form
+              </Button>
               <Button color="primary" type="submit">
                 Submit
               </Button>

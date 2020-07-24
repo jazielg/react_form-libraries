@@ -4,6 +4,17 @@ import AddClient from "./AddClient";
 import ListClient from "./ListClient";
 
 export default function Clients() {
+  const [initialValues, setInitialValues] = useState({
+    name: "",
+    email: "",
+    age: "",
+    birthdate: "",
+    acceptTerms: false,
+    gender: false,
+    country: "",
+    techs: [],
+  });
+
   const [user, setUser] = useState([
     {
       acceptTerms: true,
@@ -32,11 +43,33 @@ export default function Clients() {
     console.log(value);
   }
 
+  const getRecord = () => {
+    console.log("teste3");
+    setInitialValues({
+      name: "Teste 3",
+      email: "teste3@email.com",
+      age: "18",
+      birthdate: "2000-10-10",
+      acceptTerms: true,
+      gender: "female",
+      country: 2,
+      techs: [
+        {
+          value: 1,
+        },
+      ],
+    });
+  };
+
   return (
     <>
       <Row>
         <Col md="12" className="mb-3">
-          <AddClient onSubmit={handleSubmit} />
+          <AddClient
+            onSubmit={handleSubmit}
+            initialValues={initialValues}
+            getRecord={getRecord}
+          />
         </Col>
         <Col md="12">
           <ListClient clients={user} />
