@@ -56,7 +56,6 @@ const Table = ({ data }) => {
       <Card>
         <CardBody>
           <ReactTable
-            // pages={pages}
             defaultFilterMethod={filterCaseInsensitive}
             className="-striped -highlight"
             columns={columns}
@@ -66,6 +65,7 @@ const Table = ({ data }) => {
             showPageSizeOptions
             // manual // informs React Table that you'll be handling sorting and pagination server-side
             // onFetchData={onFetchData}
+            // pages={pages}
           />
         </CardBody>
       </Card>

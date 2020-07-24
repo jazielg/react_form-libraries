@@ -14,6 +14,14 @@ import {
 } from "reactstrap";
 import * as Yup from "yup";
 import * as moment from "moment";
+import Select from "react-select";
+
+// Data for Select
+const optionsTechs = [
+  { value: "1", label: "React" },
+  { value: "2", label: "Angular" },
+  { value: "3", label: "Vue" },
+];
 
 const signup = ({ onSubmit }) => {
   const validationSchema = Yup.object().shape({
@@ -32,6 +40,7 @@ const signup = ({ onSubmit }) => {
     ),
     gender: Yup.string().oneOf(["male", "female"], "The gender is required"),
     country: Yup.string().required(),
+    techs: Yup.string().required(),
   });
 
   return (
@@ -185,25 +194,22 @@ const signup = ({ onSubmit }) => {
               <Col md={3}>
                 <FormGroup>
                   <Label for="techs">Techs</Label>
-                  <CustomInput
-                    type="select"
-                    id="techs"
+                  <Select
+                    isMulti
                     name="techs"
-                    onChange={(event) =>
-                      setFieldValue("techs", [
-                        ...values.techs,
-                        event.target.value,
-                      ])
-                    }
-                    multiple
-                  >
-                    <option value="">Select</option>
-                    <option value="vue">Vue</option>
-                    <option value="react">React</option>
-                    <option value="angular">Angular</option>
-                    <option value="ember">Ember</option>
-                  </CustomInput>
+                    id="techs"
+                    options={optionsTechs}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    noOptionsMessage={() => "Sem opções"}
+                    onChange={(values) => setFieldValue("techs", values)}
+                  />
                 </FormGroup>
+                <ErrorMessage
+                  className="d-block"
+                  component={FormFeedback}
+                  name="techs"
+                />
               </Col>
               <Button color="primary" type="submit">
                 Submit
