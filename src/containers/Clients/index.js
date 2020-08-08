@@ -15,7 +15,7 @@ export default function Clients() {
     techs: [],
   });
 
-  const [user, setUser] = useState([
+  const [users, setUsers] = useState([
     {
       acceptTerms: true,
       age: 11,
@@ -38,10 +38,10 @@ export default function Clients() {
     },
   ]);
 
-  function handleSubmit(value) {
-    setUser([...user, value]);
+  const handleSubmit = (value) => {
+    setUsers([...users, value]);
     console.log(value);
-  }
+  };
 
   const getRecord = () => {
     console.log("teste3");
@@ -71,7 +71,7 @@ export default function Clients() {
           />
         </Col>
         <Col md="12">
-          <ListClient clients={user} />
+          <ListClient clients={users} />
         </Col>
       </Row>
     </>
